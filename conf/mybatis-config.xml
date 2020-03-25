@@ -3,14 +3,30 @@
  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<environments default="development">
-		<environment id="development">
+
+	<!-- 
+		<properties>：用来设置或引入资源文件 
+		resource：在类路径下访问资源文件
+		url：在网络路径或磁盘路径下访问资源文件
+	-->
+	<properties resource="jdbc.properties"></properties>
+	<!-- 
+		<environments>: 设置连接数据库的环境
+			default：设置默认使用的数据库环境
+	 -->
+	<environments default="mysql">
+		<!-- 
+			<environment>:设置某个具体的数据库环境
+				id：数据库环境的唯一标识
+		 -->
+		<environment id="mysql">
+			<!-- 设置事务管理器； type：事务管理方式JDBC|MANAGED-->
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
-				<property name="driver" value="com.mysql.jdbc.Driver" />
-				<property name="url" value="jdbc:mysql://localhost:3306/ssm" />
-				<property name="username" value="root" />
-				<property name="password" value="root" />
+				<property name="driver" value="${jdbc.driver}" />
+				<property name="url" value="${jdbc.url}" />
+				<property name="username" value="${jdbc.username}" />
+				<property name="password" value="${jdbc.password}" />
 			</dataSource>
 		</environment>
 	</environments>

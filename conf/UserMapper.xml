@@ -14,6 +14,6 @@
 		<!-- #{id}：所传的参数值为？通配符 -->
 		<!-- select * from user where uid = #{id} -->
 		<!-- ${value}：所传的参数值为具体所传的值，模糊查询和批量操作的时候 需要使用${value} -->
-		select * from user where uid = ${value}
+		select uid,user_name userName,password,age,sex from user where uid = ${value}
 	</select>
 </mapper>
