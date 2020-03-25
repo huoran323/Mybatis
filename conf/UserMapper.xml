@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 接口全限定名要与映射文件的namespace保持一致 -->
+<mapper namespace="com.hr.mapper.UserMapper">
+	<!-- 
+		 <select>: 定义查询语句
+		 id： 将sql语句中的id与方法名进行绑定; 
+		 resultType:返回的结果类型，即实体类的全限定名
+	-->
+	<select id="getUserByUid" resultType="com.hr.bean.User">
+		<!-- #{id}：所传的参数值为？通配符 -->
+		<!-- select * from user where uid = #{id} -->
+		<!-- ${value}：所传的参数值为具体所传的值，模糊查询和批量操作的时候 需要使用${value} -->
+		select * from user where uid = ${value}
+	</select>
+</mapper>
