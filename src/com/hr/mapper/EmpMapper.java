@@ -16,8 +16,8 @@ public interface EmpMapper {
 	void addEmp(Emp emp);
 	
 	//修改员工信息
-	void updateEmp(Emp emp);
+	Boolean updateEmp(Emp emp);
 	
 	//删除员工信息
-	void deleteEmp(String eid);
+	Integer deleteEmp(String eid);
 }

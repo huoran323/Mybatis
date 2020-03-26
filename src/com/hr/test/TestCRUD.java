@@ -33,14 +33,15 @@ public class TestCRUD {
 //		System.out.println(list);
 		
 		//测试：添加员工信息
-//		empMapper.addEmp(new Emp(null, "admin", 28, "男"));
+		empMapper.addEmp(new Emp(null, "小明", 28, "男"));
 //		//手动提交事务
 //		sqlSession.commit();
 		
 		//测试：修改员工信息
-		empMapper.updateEmp(new Emp(13, "小红", 21, "女"));
+//		empMapper.updateEmp(new Emp(13, "小红", 21, "女"));
 		
 		//测试：删除员工信息
-//		empMapper.deleteEmp("6");
+//		Integer i = empMapper.deleteEmp("14");
+//		System.out.println("result " + i);
 	}
 }

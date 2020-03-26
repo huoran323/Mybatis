@@ -35,8 +35,15 @@
 	</environments>
 	<!-- 引入映射文件 -->
 	<mappers>
-		<mapper resource="UserMapper.xml" />
+		<!-- <mapper resource="UserMapper.xml" />
 		<mapper resource="EmpMapper.xml" />
-		<mapper resource="DeptMapper.xml" />
+		<mapper resource="DeptMapper.xml" /> -->
+		
+		<!-- 
+			映射文件较多的时候，可以通过下面这种写法进行操作
+			此种写法要求mapper接口和mapper映射文件必须在同一个包下 
+			但是为了统一管理，将conf下的包名修改为com.hr.mapper与接口类同名即可
+		-->
+		<package name="com.hr.mapper"/>
 	</mappers>
 </configuration>
