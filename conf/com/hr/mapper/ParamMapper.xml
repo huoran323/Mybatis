@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 接口全限定名要与映射文件的namespace保持一致 -->
+<mapper namespace="com.hr.mapper.ParamMapper">
+	
+	<!-- void insertEmp(Emp emp); -->
+	<insert id="insertEmp">
+		<!-- 使用建议：建议使用#{}，在特殊情况下，需要使用${},例如模糊查询和批量删除 -->
+		<!-- #{}相当于是preparedStatement赋值，支持通配符赋值;可以防止SQL注入 -->
+		<!-- insert into emp values(null,#{ename},#{age},#{sex}) -->
+		
+		<!-- #{}相当于是Statement赋值，不支持通配符赋值，直接字符串拼接的形式，所以需要手动加上单引号;不可以防止SQL注入 -->
+		insert into emp values(null,'${ename}','${age}','${sex}')
+	</insert>
+	
+</mapper>
