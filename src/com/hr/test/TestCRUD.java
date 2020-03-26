@@ -33,12 +33,12 @@ public class TestCRUD {
 //		System.out.println(list);
 		
 		//测试：添加员工信息
-//		empMapper.addEmp(new Emp(null, "小明", 28, "男"));
+		empMapper.addEmp(new Emp(null, "小明", 28, "男"));
 //		//手动提交事务
 //		sqlSession.commit();
 		
 		//测试：修改员工信息
-		empMapper.updateEmp(new Emp(13, "admin", 21, "女"));
+//		empMapper.updateEmp(new Emp(13, "admin", 21, "女"));
 		
 		//测试：删除员工信息
 //		Integer i = empMapper.deleteEmp("14");
