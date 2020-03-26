@@ -7,7 +7,11 @@
 <mapper namespace="com.hr.mapper.ParamMapper">
 	
 	<!-- void insertEmp(Emp emp); -->
-	<insert id="insertEmp">
+	<!-- 
+		useGeneratedKeys:是否使用自动生成的主键，默认为true 
+		keyProperty:将自动生成的主键赋值给传递过来的参数的哪一个属性
+	-->
+	<insert id="insertEmp" useGeneratedKeys="true" keyProperty="eid">
 		<!-- 使用建议：建议使用#{}，在特殊情况下，需要使用${},例如模糊查询和批量删除 -->
 		<!-- #{}相当于是preparedStatement赋值，支持通配符赋值;可以防止SQL注入 -->
 		<!-- insert into emp values(null,#{ename},#{age},#{sex}) -->
@@ -15,5 +19,47 @@
 		<!-- #{}相当于是Statement赋值，不支持通配符赋值，直接字符串拼接的形式，所以需要手动加上单引号;不可以防止SQL注入 -->
 		insert into emp values(null,'${ename}','${age}','${sex}')
 	</insert>
+	
+	<!-- 
+		不同的参数类型，${}和#{}的不同取值方式
+		1、当传输参数为单个String或基本数据类型和其他包装类
+			#{}:可以以任意的名字获取参数值
+			${}:只能以${value}或${_parameter}获取
+		2、当传输参数为Javabean时，#{}和${}都可以通过属性名直接获取属性值,但是要注意${}的单引号问题，如上例
+		3、当传输多个参数时,mybatis会默认将这些参数放在map集合中
+			两种方式：
+				1）键为0，1，2，3...n-1,以参数为值
+				2）键为param1,param2,param3...paramN，以参数为值
+			#{}: #{0}、#{1}; #{param1}、#{param2}
+			${}: ${param1}、${param2} 但是要注意${}的单引号问题
+		4、当传输的map参数时,#{}和${}都可以通过键直接获取值,但是要注意${}的单引号问题
+		5、命名参数: 可以通过@Param("key")为map集合指定键的名字,#{}和${}都可以通过键直接获取值,但是要注意${}的单引号问题
+		6、当传输参数为List或Array，mybatis会将List或Array放在map中，
+			List以list为键
+			Array以array为键
+	 -->
+	<!--1. Emp getEmpByEid(String eid); -->
+	<select id="getEmpByEid" resultType="Emp">
+		select eid,ename,age,sex from emp where eid = #{eidsss}
+		<!-- select eid,ename,age,sex from emp where eid = ${value}
+		select eid,ename,age,sex from emp where eid = ${_parameter} -->
+	</select>
+	
+	<!--3. Emp getEmpByEidAndEname(String eid, String ename); -->
+	<select id="getEmpByEidAndEname" resultType="Emp">
+		<!-- select eid,ename,age,sex from emp where eid = #{0} and ename = #{1} -->
+		select eid,ename,age,sex from emp where eid = #{param1} and ename = #{param2}
+	</select>
+	
+	<!--4. Emp getEmpByMap(Map<String, Object> map); -->
+	<select id="getEmpByMap" resultType="Emp">
+		<!-- 传递的是map,可以直接通过键获取值,map需要手动添加键值 -->
+		select eid,ename,age,sex from emp where eid = #{eid} and ename = #{ename}
+	</select>
+	
+	<!--5. Emp getEmpByEidAndEnameByParam(@Param("eid")String eid, @Param("ename")String ename); -->
+	<select id="getEmpByEidAndEnameByParam" resultType="Emp">
+		select eid,ename,age,sex from emp where eid = #{eid} and ename = #{ename}
+	</select>
 	
 </mapper>
