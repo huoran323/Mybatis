@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 接口全限定名要与映射文件的namespace保持一致 -->
+<mapper namespace="com.hr.mapper.EmpDeptMapper">
+
+	<!-- <resultMap>: 自定义映射：处理复杂的表关系 <id column="eid" property="eid"/> :设置主键的映射关系，column：设置字段名，property:设置属性名 
+		<result column="ename" property="ename"/>: 设置非主键的映射关系 -->
+	<!-- <resultMap type="Emp" id="empMap"> 设置主键的映射关系 <id column="eid" property="eid"/> 
+		<result column="ename" property="ename"/> <result column="age" property="age"/> 
+		<result column="sex" property="sex"/> <result column="did" property="dept.did"/> 
+		<result column="dname" property="dept.dname"/> </resultMap> -->
+
+	<resultMap type="Emp" id="empMap">
+		<!-- 设置主键的映射关系 -->
+		<id column="eid" property="eid" />
+		<result column="ename" property="ename" />
+		<result column="age" property="age" />
+		<result column="sex" property="sex" />
+		<!-- 处理多对一和一对多的映射关系, （因为EmpBean中有dept属性，但是表中没有，没有办法直接映射）javaType="Dept"：对应的是java类型，因为设置了别名，所以可以写Dept -->
+		<association property="dept" javaType="Dept">
+			<id column="did" property="did" />
+			<result column="dname" property="dname" />
+		</association>
+	</resultMap>
+	<!-- List<Emp> getAllEmp(); -->
+	<select id="getAllEmp" resultMap="empMap">
+		select
+		e.eid,e.ename,e.age,e.sex,e.did,d.dname from emp e left join dept d on
+		e.did = d.did
+	</select>
+</mapper>
