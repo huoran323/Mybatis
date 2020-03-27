@@ -6,7 +6,7 @@ import com.hr.bean.Emp;
 
 public interface EmpDeptMapper {
 	
-	//
 	List<Emp> getAllEmp();
 
+	Emp getEmpStep(String eid);
 }

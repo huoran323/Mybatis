@@ -25,8 +25,12 @@ public class TestEmpDept {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true); // 自动处理事务
 
 		EmpDeptMapper mapper = sqlSession.getMapper(EmpDeptMapper.class);
-		List<Emp> list = mapper.getAllEmp();
-		System.out.println(list);
+//		List<Emp> list = mapper.getAllEmp();
+//		System.out.println(list);
+		
+		//测试分步查询
+		Emp emp = mapper.getEmpStep("1");
+		System.out.println(emp);
 
 	}
 }

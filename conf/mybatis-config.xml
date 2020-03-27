@@ -8,8 +8,14 @@
 	<properties resource="jdbc.properties"></properties>
 
 	<settings>
-		<!-- 将下划线转换为驼峰 -->
+		<!-- 将下划线转换为驼峰 user_name 映射为 userName -->
 		<setting name="mapUnderscoreToCamelCase" value="true" />
+		
+		<!-- 延迟加载适用于分步查询，且下面的两条语句都要设置 -->
+		<!-- 开启延迟加载 -->
+		<setting name="lazyLoadingEnabled" value="true" />
+		<!-- 是否查询所有数据 -->
+		<setting name="aggressiveLazyLoading" value="false" />
 	</settings>
 
 	<typeAliases>

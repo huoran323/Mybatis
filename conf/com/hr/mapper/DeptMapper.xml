@@ -6,4 +6,9 @@
 <!-- 接口全限定名要与映射文件的namespace保持一致 -->
 <mapper namespace="com.hr.mapper.DeptMapper">
 	
+	<!-- Dept getDeptByDid(String did); -->
+	<select id="getDeptByDid" resultType="Dept">
+		select did,dname from dept where did = #{did}
+	</select>
+	
 </mapper>
