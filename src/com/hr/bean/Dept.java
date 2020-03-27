@@ -1,10 +1,23 @@
 package com.hr.bean;
 
+import java.util.List;
+
 public class Dept {
 
 	private Integer did;
 	
 	private String dname;
+	
+	private List<Emp> emps;
+	
+
+	public List<Emp> getEmps() {
+		return emps;
+	}
+
+	public void setEmps(List<Emp> emps) {
+		this.emps = emps;
+	}
 
 	public Integer getDid() {
 		return did;
@@ -24,7 +37,7 @@ public class Dept {
 
 	@Override
 	public String toString() {
-		return "Dept [did=" + did + ", dname=" + dname + "]";
+		return "Dept [did=" + did + ", dname=" + dname + ", emps=" + emps + "]";
 	}
 	
 	

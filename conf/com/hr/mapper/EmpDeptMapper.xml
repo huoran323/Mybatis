@@ -32,6 +32,7 @@
 		e.did = d.did
 	</select>
 	
+	<!-- 分步查询测试多对一 -->
 	<!-- 
 		<resultMap>:自定义映射，处理复杂的表关系
 	 -->
@@ -52,4 +53,43 @@
 	<select id="getEmpStep" resultMap="empMapStep">
 		select eid,ename,age,sex,did from emp where eid = #{eid}
 	</select>
+	
+	<resultMap type="Dept" id="deptMap">
+		<id column="did" property="did"/>
+		<result column="dname" property="dname"/>
+		<!-- 
+			<collection>:处理一对多和多对多的关系
+			DeptBean中设置了属性emps,所以property为emps; 
+			ofType:emps集合中的类型，不需要指定javaType
+		-->
+		<collection property="emps" ofType="Emp">
+			<id column="eid" property="eid" />
+			<result column="ename" property="ename" />
+			<result column="age" property="age" />
+			<result column="sex" property="sex" />
+		</collection>
+	</resultMap>
+	
+	<!-- Dept getDeptEmpsByDid(String did); -->
+	<select id="getDeptEmpsByDid" resultMap="deptMap">
+		select d.did,d.dname,e.eid,e.ename,e.age,e.sex from dept d left join emp e on d.did = e.did where d.did = #{did}
+	</select>
+	
+	<!-- 分步查询测试一对多 -->
+	<!-- List<Emp> getEmpListByDid(String did); -->
+	<select id="getEmpListByDid" resultType="Emp">
+		select eid,ename,age,sex from emp where did = #{did}
+	</select>
+	<resultMap type="Dept" id="deptMapStep">
+		<id column="did" property="did"/>
+		<result column="dname" property="dname"/>
+		<collection property="emps" select="com.hr.mapper.EmpDeptMapper.getEmpListByDid" column="did">
+		</collection>
+	</resultMap>
+	<!-- Dept getOnlyDeptByDid(String did); -->
+	<select id="getOnlyDeptByDid" resultMap="deptMapStep">
+		select did,dname from dept where did = #{did}
+	</select>
+	
+	
 </mapper>

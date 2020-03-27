@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
+import com.hr.bean.Dept;
 import com.hr.bean.Emp;
 import com.hr.mapper.EmpDeptMapper;
 import com.hr.mapper.EmpSelectMapper;
@@ -28,9 +29,15 @@ public class TestEmpDept {
 //		List<Emp> list = mapper.getAllEmp();
 //		System.out.println(list);
 		
-		//测试分步查询
-		Emp emp = mapper.getEmpStep("1");
-		System.out.println(emp);
+		//测试分步查询多对一
+//		Emp emp = mapper.getEmpStep("1");
+//		System.out.println(emp);
+		
+//		Dept dept = mapper.getDeptEmpsByDid("2");
+//		System.out.println(dept);
 
+		//测试分步查询一对多
+		Dept dept = mapper.getOnlyDeptByDid("2");
+		System.out.println(dept.getDname());
 	}
 }
