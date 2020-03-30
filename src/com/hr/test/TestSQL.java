@@ -2,6 +2,7 @@ package com.hr.test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
@@ -59,5 +60,24 @@ public class TestSQL {
 //		}
 		
 		mapper.insertEmp(emp);
+	}
+	
+	@Test
+	public void testDeleteMore() throws IOException {
+
+		SqlSessionFactory factory = getSqlSessionFactory();
+		SqlSession session = factory.openSession(true);
+		EmpSQLMapper mapper = session.getMapper(EmpSQLMapper.class);
+		
+		//批量删除方式一
+//		String eids = "1,2";
+//		mapper.deleteMoreEmp(eids);
+		
+		//批量删除方式二
+		List<Integer> eids = new ArrayList<>();
+		eids.add(3);
+		eids.add(4);
+		mapper.deleteMoreByList(eids);
+		
 	}
 }

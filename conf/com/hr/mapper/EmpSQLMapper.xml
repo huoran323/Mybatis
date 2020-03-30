@@ -100,5 +100,40 @@
 			</choose>
 		)
 	</insert>
+	
+	<!-- 批量删除方式一 -->
+	<!-- void deleteMoreEmp(String eids); -->
+	<delete id="deleteMoreEmp">
+		delete from emp where eid in (${value})
+	</delete>
+	
+	<!-- 批量删除方式二 -->
+	<!-- 
+		<foreach collection="" item="" close="" open="" separator="" index=""></foreach>:对一个数组或集合进行遍历
+			collection:指定要遍历的集合或数组
+			item：设置别名
+			close:设置循环体的结束内容
+			open:设置循环体的开始内容
+			separator:设置每一次循环之间的分隔符
+			index:若遍历的是list集合，index代表下标；若遍历的是map，index代表的是键
+	 -->
+	<!-- void deleteMoreByList(List<Integer> eids); -->
+	<delete id="deleteMoreByList">
+		<!-- 方式一 -->
+		<!-- delete from emp where eid in 
+		
+		当传输参数为List或Array，mybatis会将List或Array放在map中，
+			List以list为键,所以collection="list"
+		<foreach collection="list" item="eid" separator="," open="(" close="">
+			#{eid}
+		</foreach> -->
+		
+		<!-- 方式二 -->
+		delete from emp where
+		<foreach collection="list" item="eid" separator="or">
+			eid = #{eid} 
+		</foreach>
+		
+	</delete>
 
 </mapper>
