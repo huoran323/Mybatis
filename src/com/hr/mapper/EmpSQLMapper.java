@@ -2,6 +2,8 @@ package com.hr.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.hr.bean.Emp;
 
 public interface EmpSQLMapper {
@@ -19,5 +21,8 @@ public interface EmpSQLMapper {
 	void deleteMoreEmp(String eids);
 	
 	//通过list集合实现批量删除
-	void deleteMoreByList(List<Integer> eids);
+	void deleteMoreByList(@Param("eids")List<Integer> eids);
+	
+	//批量添加
+	void insertMoreArray(@Param("emps")Emp[] emps);
 }

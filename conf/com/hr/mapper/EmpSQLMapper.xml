@@ -7,6 +7,12 @@
 <mapper namespace="com.hr.mapper.EmpSQLMapper">
 
 	<!-- 
+		<sql id=""></sql>:设置一段SQL片段，即公共SQL，可以被当前映射文件中所有的SQL语句所访问
+			用法：<include refid="empColumns"></include>:访问某个SQL片段
+	 -->
+	<sql id="empColumns">select eid,ename,age,sex,did from emp</sql>
+
+	<!-- 
 		<if test=""></if>：通过test表达式，拼接sql 
 		<where>:添加where关键字，同时去掉多余的and
 		<trim prefix="" suffix="" prefixOverrides="" suffixOverrides="">: trim截取并拼接
@@ -18,7 +24,8 @@
 
 	<!-- List<Emp> getEmpListByMoreTJ(Emp emp); 多条件查询：若页面中没有设置此条件，SQL语句中一定不能有该条件 -->
 	<select id="getEmpListByMoreTJ" resultType="Emp">
-		select eid,ename,sex,age,did from emp
+		<!-- select eid,ename,sex,age,did from emp -->
+		<include refid="empColumns"></include>
 		<!-- 1=1恒成立的条件，防止某一个条件没有输入，SQL语句报错的问题(where and) -->
 		<!-- where 1 = 1 -->
 		<trim prefix="where" suffix="" prefixOverrides="" suffixOverrides="and|or"><!-- and|or将SQL语句最后的and或者or去掉 -->
@@ -120,20 +127,31 @@
 	<!-- void deleteMoreByList(List<Integer> eids); -->
 	<delete id="deleteMoreByList">
 		<!-- 方式一 -->
-		<!-- delete from emp where eid in 
-		
-		当传输参数为List或Array，mybatis会将List或Array放在map中，
-			List以list为键,所以collection="list"
-		<foreach collection="list" item="eid" separator="," open="(" close="">
+		delete from emp where eid in 
+		<!-- 当传输参数为List或Array，mybatis会将List或Array放在map中，
+			List以list为键,所以collection="list" -->
+		<!-- <foreach collection="list" item="eid" separator="," open="(" close=")">
 			#{eid}
 		</foreach> -->
 		
-		<!-- 方式二 -->
-		delete from emp where
-		<foreach collection="list" item="eid" separator="or">
-			eid = #{eid} 
+		<!-- 设置@Param("eids")，collection="eids -->
+		<foreach collection="eids" item="eid" separator="," open="(" close=")">
+			#{eid}
 		</foreach>
 		
+		<!-- 方式二 -->
+		<!-- delete from emp where
+		<foreach collection="list" item="eid" separator="or">
+			eid = #{eid} 
+		</foreach> -->
 	</delete>
+	
+	<!-- void insertMoreArray(Emp[] emps); -->
+	<insert id="insertMoreArray">
+		insert into emp values
+		<foreach collection="emps" item="emp" separator=",">
+			(null,#{emp.ename},#{emp.age},#{emp.sex},1)
+		</foreach>
+	</insert>
 
 </mapper>

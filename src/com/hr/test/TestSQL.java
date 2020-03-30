@@ -80,4 +80,22 @@ public class TestSQL {
 		mapper.deleteMoreByList(eids);
 		
 	}
+	
+	//批量添加
+	@Test
+	public void testInsertMore() throws IOException {
+
+		SqlSessionFactory factory = getSqlSessionFactory();
+		SqlSession session = factory.openSession(true);
+		EmpSQLMapper mapper = session.getMapper(EmpSQLMapper.class);
+		
+		//创建数组的三种方式
+//		Emp[] emps = new Emp[3];
+//		Emp[] emps = new Emp[]{};
+		Emp emp1 = new Emp(null, "a", 23, "男");
+		Emp emp2 = new Emp(null, "b", 23, "女");
+		Emp emp3 = new Emp(null, "c", 23, "男");
+		Emp[] emps = {emp1,emp2,emp3};
+		mapper.insertMoreArray(emps);
+	}
 }
