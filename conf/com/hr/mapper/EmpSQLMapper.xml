@@ -58,5 +58,47 @@
 			</if>
 		</where>
 	</select>
+	
+	<!-- 
+		<choose>:选择某一个when或otherwise执行
+			<when test=""></when>:通过test表达式拼接SQL
+			.
+			.
+			<otherwise></otherwise>：当when都不符合条件，就会选择otherwise拼接sql
+		</choose>
+	 -->
+	<!-- List<Emp> getEmpListByChoose(Emp emp); -->
+	<select id="getEmpListByChoose" resultType="Emp">
+		select eid,ename,age,sex from emp
+		where
+		<choose>
+			<when test="eid != null">
+				eid = #{eid}
+			</when>
+			<when test="ename != null and ename != ''">
+				ename = #{ename}
+			</when>
+			<when test="age != null">
+				age = #{age}
+			</when>
+			<otherwise>
+				sex = #{sex}
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- void insertEmp(Emp emp); -->
+	<insert id="insertEmp">
+		insert into emp(eid,ename,age,sex) values(
+			null,
+			#{ename},
+			#{age},
+			<choose>
+				<when test="sex == 0">'女'</when>
+				<when test="sex == 1">'男'</when>
+				<otherwise>'不详'</otherwise>
+			</choose>
+		)
+	</insert>
 
 </mapper>
