@@ -16,10 +16,11 @@
 	<resultMap type="Emp" id="empMap">
 		<!-- 设置主键的映射关系 -->
 		<id column="eid" property="eid" />
+		<!-- column="ename"：查询数据库表中的ename, property="ename"赋值给Emp对象中的ename属性-->
 		<result column="ename" property="ename" />
 		<result column="age" property="age" />
 		<result column="sex" property="sex" />
-		<!-- 处理多对一和一对多的映射关系, （因为EmpBean中有dept属性，但是表中没有，没有办法直接映射）javaType="Dept"：对应的是java类型，因为设置了别名，所以可以写Dept -->
+		<!-- 处理多对一和一对一的映射关系, property="dept"：对应的是Emp对象中的属性名（因为EmpBean中有dept属性，但是表中没有，没有办法直接映射）javaType="Dept"：对应的是java类型，因为设置了别名，所以可以写Dept -->
 		<association property="dept" javaType="Dept">
 			<id column="did" property="did" />
 			<result column="dname" property="dname" />
@@ -83,7 +84,7 @@
 	<resultMap type="Dept" id="deptMapStep">
 		<id column="did" property="did"/>
 		<result column="dname" property="dname"/>
-		<collection property="emps" select="com.hr.mapper.EmpDeptMapper.getEmpListByDid" column="did">
+		<collection property="emps" select="com.hr.mapper.EmpDeptMapper.getEmpListByDid" column="did" fetchType="eager">
 		</collection>
 	</resultMap>
 	<!-- Dept getOnlyDeptByDid(String did); -->

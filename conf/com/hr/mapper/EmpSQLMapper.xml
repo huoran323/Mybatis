@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 接口全限定名要与映射文件的namespace保持一致 -->
+<mapper namespace="com.hr.mapper.EmpSQLMapper">
+	
+	<!-- List<Emp> getEmpListByMoreTJ(Emp emp); 多条件查询：若页面中没有设置此条件，SQL语句中一定不能有该条件-->
+	<select id="getEmpListByMoreTJ" resultType="Emp">
+		select eid,ename,sex,age,did from emp
+		<!-- 1=1恒成立的条件，防止某一个条件没有输入，SQL语句报错的问题(where and) -->
+		where 1 = 1
+		<if test="eid != null">
+			and eid = #{eid}
+		</if>
+		<if test="ename != null and ename != ''">
+			and ename = #{ename}
+		</if>
+		<if test="age != null">
+			and age = #{age}
+		</if>
+		<!-- ==判断的时候，必须是数值，不能是字符串 -->
+		<if test="sex == 1 or sex== 0">
+			and sex = #{sex}
+		</if>
+	</select>
+	
+</mapper>
