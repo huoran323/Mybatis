@@ -5,25 +5,58 @@
 
 <!-- 接口全限定名要与映射文件的namespace保持一致 -->
 <mapper namespace="com.hr.mapper.EmpSQLMapper">
-	
-	<!-- List<Emp> getEmpListByMoreTJ(Emp emp); 多条件查询：若页面中没有设置此条件，SQL语句中一定不能有该条件-->
+
+	<!-- 
+		<if test=""></if>：通过test表达式，拼接sql 
+		<where>:添加where关键字，同时去掉多余的and
+		<trim prefix="" suffix="" prefixOverrides="" suffixOverrides="">: trim截取并拼接
+			prefix:在操作的SQL语句前加入某些内容
+			suffix:在操作的SQL语句后加入某些内容
+			prefixOverrides:把操作的SQL语句前的某些内容去掉
+			suffixOverrides:把操作的SQL语句后的某些内容去掉
+	-->
+
+	<!-- List<Emp> getEmpListByMoreTJ(Emp emp); 多条件查询：若页面中没有设置此条件，SQL语句中一定不能有该条件 -->
 	<select id="getEmpListByMoreTJ" resultType="Emp">
 		select eid,ename,sex,age,did from emp
 		<!-- 1=1恒成立的条件，防止某一个条件没有输入，SQL语句报错的问题(where and) -->
-		where 1 = 1
-		<if test="eid != null">
-			and eid = #{eid}
-		</if>
-		<if test="ename != null and ename != ''">
-			and ename = #{ename}
-		</if>
-		<if test="age != null">
-			and age = #{age}
-		</if>
-		<!-- ==判断的时候，必须是数值，不能是字符串 -->
-		<if test="sex == 1 or sex== 0">
-			and sex = #{sex}
-		</if>
+		<!-- where 1 = 1 -->
+		<trim prefix="where" suffix="" prefixOverrides="" suffixOverrides="and|or"><!-- and|or将SQL语句最后的and或者or去掉 -->
+			<if test="eid != null">
+				eid = #{eid} and 
+			</if>
+			<if test="ename != null and ename != ''">
+				ename = #{ename} and 
+			</if>
+			<if test="age != null">
+				age = #{age} and 
+			</if>
+			<!-- ==判断的时候，必须是数值，不能是字符串 -->
+			<if test="sex == 1 or sex== 0">
+				sex = #{sex}
+			</if>
+		</trim>
 	</select>
 	
+	<select id="getEmpListByMoreTJ1" resultType="Emp">
+		select eid,ename,sex,age,did from emp
+		<!-- 1=1恒成立的条件，防止某一个条件没有输入，SQL语句报错的问题(where and) -->
+		<!-- where 1 = 1 -->
+		<where>
+			<if test="eid != null">
+				and eid = #{eid}
+			</if>
+			<if test="ename != null and ename != ''">
+				and ename = #{ename}
+			</if>
+			<if test="age != null">
+				and age = #{age}
+			</if>
+			<!-- ==判断的时候，必须是数值，不能是字符串 -->
+			<if test="sex == 1 or sex== 0">
+				and sex = #{sex}
+			</if>
+		</where>
+	</select>
+
 </mapper>

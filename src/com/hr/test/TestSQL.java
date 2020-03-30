@@ -33,7 +33,7 @@ public class TestSQL {
 //		emp.setEid(1);
 		emp.setEname("张三");
 		emp.setAge(23);
-		emp.setSex("1");
+//		emp.setSex("1");
 		List<Emp> list = mapper.getEmpListByMoreTJ(emp);
 		for (Emp emp2 : list) {
 			System.out.println(emp2);
