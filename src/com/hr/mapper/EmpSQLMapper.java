@@ -25,4 +25,7 @@ public interface EmpSQLMapper {
 	
 	//批量添加
 	void insertMoreArray(@Param("emps")Emp[] emps);
+	
+	//根据eid查询员工信息
+	Emp getEmpByEid(String eid);
 }

@@ -1,6 +1,13 @@
 package com.hr.bean;
 
-public class Emp {
+import java.io.Serializable;
+
+public class Emp implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private Integer eid;
 	
