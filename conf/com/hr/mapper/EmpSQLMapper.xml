@@ -140,6 +140,9 @@
 		where eid = #{eid}
 	</select>
 
-
+	<!-- List<Emp> getAllEmp(); -->
+	<select id="getAllEmp" resultType="Emp">
+		<include refid="empColumns"></include>
+	</select>
 
 </mapper>

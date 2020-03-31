@@ -28,6 +28,12 @@
 		<!-- 为包下的所有类 设置别名 -->
 		<package name="com.hr.bean" />
 	</typeAliases>
+	
+	<!-- 配置插件 -->
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+	</plugins>
+	
 	<!-- <environments>: 设置连接数据库的环境 default：设置默认使用的数据库环境 -->
 	<environments default="mysql">
 		<!-- <environment>:设置某个具体的数据库环境 id：数据库环境的唯一标识 -->

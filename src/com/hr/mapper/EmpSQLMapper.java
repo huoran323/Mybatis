@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import com.hr.bean.Emp;
 
 public interface EmpSQLMapper {
+	
+	List<Emp> getAllEmp();
 
 	//根据eid,ename,age,sex多条件查询员工信息
 	List<Emp> getEmpListByMoreTJ(Emp emp);

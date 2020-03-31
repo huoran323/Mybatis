@@ -11,7 +11,7 @@
    overflowToDisk="true" 
    timeToIdleSeconds="120"
    timeToLiveSeconds="120" 
-   diskExpiryThreadIntervalSeconds="120"
+   diskExpiryThreadIntervalSeconds="120" 
    memoryStoreEvictionPolicy="LRU">
  </defaultCache>
 </ehcache>
